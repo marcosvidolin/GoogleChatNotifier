@@ -143,7 +143,6 @@ public class GoogleChatMessage {
             }
         }
         return
-
                 "{\n  \"cards\": [\n    {\n      \"header\": {\n        \"title\": \"" + getHeaderTitle() + "\",\n        \"subtitle\": \"" + getHeaderSubtitle() + "\",\n        \"imageUrl\": \"" + imgUrl + "\",\n        \"imageStyle\": \"" + getImageStyle() + "\"\n      },\n      \n      \"sections\": [\n        \n        {\n          \"widgets\": [\n            {\n              \"textParagraph\": {\n                \"text\": \"" + getTextParagraph() + "\"\n              }\n              \n            }\n          ]\n        },\n        {\n          \n          \"widgets\": [\n            {\n             \"buttons\": [\n              {\n                \"textButton\": {\n                  \"text\": \"" + getTextButton() + "\",\n                  \"onClick\": {\n                    \"openLink\": {\n                      \"url\": \"" + getOpenLinkUrl() + "\"\n                    }\n                  }\n                }\n              }\n            ]\n           }\n         ]\n        }\n      ]\n    }\n  ]\n}";
     }
 }
