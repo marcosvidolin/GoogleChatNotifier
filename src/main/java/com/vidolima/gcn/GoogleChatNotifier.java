@@ -9,6 +9,11 @@ import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Notifier;
 import hudson.tasks.Publisher;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.Scanner;
+import java.util.logging.Logger;
 import net.sf.json.JSONObject;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -46,7 +51,9 @@ import org.kohsuke.stapler.QueryParameter;
  *
  * @author Marcos A. Vidolin de Lima
  */
-public class GoogleChatNotifier extends Builder implements SimpleBuildStep {
+public class GoogleChatNotifier extends Notifier implements SimpleBuildStep {
+
+    protected static final Logger LOGGER = Logger.getLogger(GoogleChatNotifier.class.getName());
 
     private String webhookUrl;
     private boolean considerBuildStatus;
@@ -79,6 +86,7 @@ public class GoogleChatNotifier extends Builder implements SimpleBuildStep {
         return this.considerBuildStatus;
     }
 
+    @Override
     public void perform(Run<?, ?> run, FilePath workspace, Launcher launcher, TaskListener listener) {
         try {
             listener.getLogger().println("Sending Google Chat notification");
@@ -90,10 +98,17 @@ public class GoogleChatNotifier extends Builder implements SimpleBuildStep {
         listener.getLogger().println("Google Chat notification set!");
     }
 
+    /**
+     * This class does explicit check pointing.
+     */
+    public BuildStepMonitor getRequiredMonitorService() {
+        return BuildStepMonitor.NONE;
+    }
+
     @Symbol({"googleChatNotifier"})
     @Extension
     public static final class DescriptorImpl extends BuildStepDescriptor<Builder> {
-        public FormValidation doCheckName(@QueryParameter String value) throws IOException, ServletException {
+        public FormValidation doCheckName(@QueryParameter String value) {
             if (value.length() == 0) {
 //                return FormValidation.error(Messages.GoogleChatNotifierBuilder_DescriptorImpl_errors_missingWebhookUrl());
                 return FormValidation.error(""); // TODO
