@@ -51,7 +51,7 @@ import org.kohsuke.stapler.QueryParameter;
  *
  * @author Marcos A. Vidolin de Lima
  */
-public class GoogleChatNotifier extends Notifier implements SimpleBuildStep {
+public class GoogleChatNotifier extends Builder implements SimpleBuildStep {
 
     protected static final Logger LOGGER = Logger.getLogger(GoogleChatNotifier.class.getName());
 
