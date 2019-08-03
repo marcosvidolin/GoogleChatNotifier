@@ -12,12 +12,12 @@ pipeline {
 
     post {
         failure {
-            googleChatNotifier considerBuildStatus: true, webhookUrl: 'https://chat.googleapis.com/v1/spaces/AAAAMg_D8u4/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=D9yTgcxAhP2j-ENbvENY8U7dBKLH5NeXEa2XodW5Gzc%3D'
+            googleChatNotifier considerBuildStatus: true, webhookUrl: 'https://chat.googleapis.com/v1/spaces/AAAAMg_D8u4/messages?key=<GOOGLE_CHAT_KEY>'
         }
         success {
             script {
                 if (currentBuild.previousBuild != null && currentBuild.previousBuild.result != 'SUCCESS') {
-                    googleChatNotifier considerBuildStatus: true, webhookUrl: 'https://chat.googleapis.com/v1/spaces/AAAAMg_D8u4/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=D9yTgcxAhP2j-ENbvENY8U7dBKLH5NeXEa2XodW5Gzc%3D'
+                    googleChatNotifier considerBuildStatus: true, webhookUrl: 'https://chat.googleapis.com/v1/spaces/AAAAMg_D8u4/messages?key=<GOOGLE_CHAT_KEY>'
                 }
             }
         }
